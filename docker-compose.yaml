@@ -1,0 +1,104 @@
+x-redis-cluster-base: &redis-cluster-base
+  image: docker.io/bitnami/redis-cluster:7.2
+
+services:
+    redis-cluster-0:
+        container_name: redis-cluster-0
+        <<: *redis-cluster-base
+        ports:
+            - 6390:6390
+        environment:
+            - 'ALLOW_EMPTY_PASSWORD=yes'
+            - 'REDIS_NODES=redis-cluster-0:6390 redis-cluster-1:6391 redis-cluster-2:6392 redis-cluster-3:6393 redis-cluster-4:6394 redis-cluster-5:6395'
+            - 'REDIS_CLUSTER_ANNOUNCE_HOSTNAME=localhost'
+            - 'REDIS_CLUSTER_PREFERRED_ENDPOINT_TYPE=hostname'
+        networks:
+            - fof-cluster-network
+
+    redis-cluster-1:
+        container_name: redis-cluster-1
+        <<: *redis-cluster-base
+        ports:
+            - 6391:6391
+        environment:
+            - 'ALLOW_EMPTY_PASSWORD=yes'
+            - 'REDIS_NODES=redis-cluster-0:6390 redis-cluster-1:6391 redis-cluster-2:6392 redis-cluster-3:6393 redis-cluster-4:6394 redis-cluster-5:6395'
+            - 'REDIS_PORT_NUMBER=6391'
+            - 'REDIS_CLUSTER_ANNOUNCE_HOSTNAME=localhost'
+            - 'REDIS_CLUSTER_ANNOUNCE_PORT=6391'
+            - 'REDIS_CLUSTER_PREFERRED_ENDPOINT_TYPE=hostname'
+        networks:
+            - fof-cluster-network
+
+    redis-cluster-2:
+        container_name: redis-cluster-2
+        <<: *redis-cluster-base
+        ports:
+            - 6392:6392
+        environment:
+            - 'ALLOW_EMPTY_PASSWORD=yes'
+            - 'REDIS_NODES=redis-cluster-0:6390 redis-cluster-1:6391 redis-cluster-2:6392 redis-cluster-3:6393 redis-cluster-4:6394 redis-cluster-5:6395'
+            - 'REDIS_PORT_NUMBER=6392'
+            - 'REDIS_CLUSTER_ANNOUNCE_HOSTNAME=localhost'
+            - 'REDIS_CLUSTER_ANNOUNCE_PORT=6392'
+            - 'REDIS_CLUSTER_PREFERRED_ENDPOINT_TYPE=hostname'
+        networks:
+            - fof-cluster-network
+
+    redis-cluster-3:
+        container_name: redis-cluster-3
+        <<: *redis-cluster-base
+        ports:
+            - 6393:6393
+        environment:
+            - 'ALLOW_EMPTY_PASSWORD=yes'
+            - 'REDIS_NODES=redis-cluster-0:6390 redis-cluster-1:6391 redis-cluster-2:6392 redis-cluster-3:6393 redis-cluster-4:6394 redis-cluster-5:6395'
+            - 'REDIS_PORT_NUMBER=6393'
+            - 'REDIS_CLUSTER_ANNOUNCE_HOSTNAME=localhost'
+            - 'REDIS_CLUSTER_ANNOUNCE_PORT=6393'
+            - 'REDIS_CLUSTER_PREFERRED_ENDPOINT_TYPE=hostname'
+        networks:
+            - fof-cluster-network
+
+    redis-cluster-4:
+        container_name: redis-cluster-4
+        <<: *redis-cluster-base
+        ports:
+            - 6394:6394
+        environment:
+            - 'ALLOW_EMPTY_PASSWORD=yes'
+            - 'REDIS_NODES=redis-cluster-0:6390 redis-cluster-1:6391 redis-cluster-2:6392 redis-cluster-3:6393 redis-cluster-4:6394 redis-cluster-5:6395'
+            - 'REDIS_PORT_NUMBER=6394'
+            - 'REDIS_CLUSTER_ANNOUNCE_HOSTNAME=localhost'
+            - 'REDIS_CLUSTER_ANNOUNCE_PORT=6394'
+            - 'REDIS_CLUSTER_PREFERRED_ENDPOINT_TYPE=hostname'
+        networks:
+            - fof-cluster-network
+
+    redis-cluster-5:
+        container_name: redis-cluster-5
+        <<: *redis-cluster-base
+        ports:
+            - 6395:6395
+        depends_on:
+            - redis-cluster-0
+            - redis-cluster-1
+            - redis-cluster-2
+            - redis-cluster-3
+            - redis-cluster-4
+        environment:
+            - 'ALLOW_EMPTY_PASSWORD=yes'
+            - 'REDIS_NODES=redis-cluster-0:6390 redis-cluster-1:6391 redis-cluster-2:6392 redis-cluster-3:6393 redis-cluster-4:6394 redis-cluster-5:6395'
+            - 'REDIS_PORT_NUMBER=6394'
+            - 'REDIS_CLUSTER_ANNOUNCE_HOSTNAME=localhost'
+            - 'REDIS_CLUSTER_ANNOUNCE_PORT=6395'
+            - 'REDIS_CLUSTER_PREFERRED_ENDPOINT_TYPE=hostname'
+            - 'REDIS_CLUSTER_REPLICAS=1'
+            - 'REDIS_CLUSTER_CREATOR=yes'
+        networks:
+            - fof-cluster-network
+
+networks:
+  fof-cluster-network:
+    name: fof-cluster-network
+    external: true
