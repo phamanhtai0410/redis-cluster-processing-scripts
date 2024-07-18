@@ -7,6 +7,7 @@ services:
         <<: *redis-cluster-base
         ports:
             - 6390:6390
+            - 16390:106390
         environment:
             - 'ALLOW_EMPTY_PASSWORD=yes'
             - 'REDIS_NODES=redis-cluster-0:6390 redis-cluster-1:6391 redis-cluster-2:6392 redis-cluster-3:6393 redis-cluster-4:6394 redis-cluster-5:6395'
@@ -20,6 +21,7 @@ services:
         <<: *redis-cluster-base
         ports:
             - 6391:6391
+            - 16391:16391
         environment:
             - 'ALLOW_EMPTY_PASSWORD=yes'
             - 'REDIS_NODES=redis-cluster-0:6390 redis-cluster-1:6391 redis-cluster-2:6392 redis-cluster-3:6393 redis-cluster-4:6394 redis-cluster-5:6395'
@@ -35,6 +37,7 @@ services:
         <<: *redis-cluster-base
         ports:
             - 6392:6392
+            - 16392:16392
         environment:
             - 'ALLOW_EMPTY_PASSWORD=yes'
             - 'REDIS_NODES=redis-cluster-0:6390 redis-cluster-1:6391 redis-cluster-2:6392 redis-cluster-3:6393 redis-cluster-4:6394 redis-cluster-5:6395'
@@ -50,6 +53,7 @@ services:
         <<: *redis-cluster-base
         ports:
             - 6393:6393
+            - 16393:16393
         environment:
             - 'ALLOW_EMPTY_PASSWORD=yes'
             - 'REDIS_NODES=redis-cluster-0:6390 redis-cluster-1:6391 redis-cluster-2:6392 redis-cluster-3:6393 redis-cluster-4:6394 redis-cluster-5:6395'
@@ -65,6 +69,7 @@ services:
         <<: *redis-cluster-base
         ports:
             - 6394:6394
+            - 16394:16394
         environment:
             - 'ALLOW_EMPTY_PASSWORD=yes'
             - 'REDIS_NODES=redis-cluster-0:6390 redis-cluster-1:6391 redis-cluster-2:6392 redis-cluster-3:6393 redis-cluster-4:6394 redis-cluster-5:6395'
@@ -80,6 +85,7 @@ services:
         <<: *redis-cluster-base
         ports:
             - 6395:6395
+            - 16395:16395
         depends_on:
             - redis-cluster-0
             - redis-cluster-1
